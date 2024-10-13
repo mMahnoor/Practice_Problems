@@ -6,22 +6,26 @@ using namespace std;
 class Solution
 {
 public:
+    vector<int> dp;
     int minCostClimbingStairs(vector<int> &cost)
     {
+        int n = cost.size();
+        dp.assign(n, -1);
 
-        return min(totalCost(cost, 0, cost.size() - 1),
-                   totalCost(cost, 1, cost.size() - 1));
+        return min(totalCost(0, cost), totalCost(1, cost));
     }
-    int totalCost(vector<int> &cost, int i, int N)
+    int totalCost(int i, vector<int> &cost)
     {
-        if (i == N)
+        if (i == cost.size() - 1)
             return cost[i];
-        else if (i > N)
+        else if (i > cost.size() - 1)
             return 0;
 
-        else
-            return min(cost[i] + totalCost(cost, i + 2, N),
-                       cost[i] + totalCost(cost, i + 1, N));
+        if (dp[i] != -1)
+            return dp[i];
+        dp[i] = min(cost[i] + totalCost(i + 2, cost),
+                    cost[i] + totalCost(i + 1, cost));
+        return dp[i];
     }
 };
 
