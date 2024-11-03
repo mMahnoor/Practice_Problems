@@ -1,2 +1,2 @@
 # Practice_Problems
-Coding problem on online judges
+Problem solving on online judges
